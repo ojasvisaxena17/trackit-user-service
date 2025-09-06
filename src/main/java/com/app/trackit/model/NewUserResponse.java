@@ -22,13 +22,13 @@ public class NewUserResponse
 
     public NewUserResponse(User save)
     {
-        this.first_name = save.getFirst_name();
-        this.last_name = save.getLast_name();
+        this.first_name = save.getFirstName();
+        this.last_name = save.getLastName();
         this.email = save.getEmail();
         this.password = save.getPassword();
         this.role = save.getRole();
-        this.contact = save.getContact_no();
-        this.created_at = save.getCreated_at();
+        this.contact = save.getContact();
+        this.created_at = save.getCreatedAt();
 
     }
 
