@@ -6,6 +6,7 @@ import com.app.trackit.model.NewUserResponse;
 import com.app.trackit.model.UpdateUserRequest;
 import com.app.trackit.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -48,6 +49,9 @@ public class UserServiceImpl implements UserService
     {
         Optional <User> optionaluser = userRepository.findById(id);
         User user = optionaluser.get();
+        if (!ObjectUtils.isEmpty(updateUserRequest)) {
+            user.setUpdated_at(LocalDateTime.now());
+        }
         if(updateUserRequest.getEmail()!=null)
         {
             user.setEmail(updateUserRequest.getEmail());
