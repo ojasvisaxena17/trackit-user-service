@@ -2,26 +2,28 @@ package com.app.trackit.controller;
 
 import com.app.trackit.entity.User;
 import com.app.trackit.model.NewUserRequest;
+import com.app.trackit.model.NewUserResponse;
 import com.app.trackit.model.UpdateUserRequest;
 import com.app.trackit.service.UserService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
-
-
+@Slf4j
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class UserController
 {
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
     @PostMapping("/newUser")
-    public void newUser(@RequestBody NewUserRequest newUserRequest) {
-        userService.newUser(newUserRequest);
+    public ResponseEntity<NewUserResponse> newUser(@RequestBody NewUserRequest newUserRequest) {
+        log.info("Inside newUser");
+       NewUserResponse newUserResponse = userService.newUser(newUserRequest);
+       return ResponseEntity.ok(newUserResponse);
 
     }
 

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    NewUserResponse newUser(NewUserRequest user);
+    public NewUserResponse newUser(NewUserRequest user);
     public void deleteUser(Integer id);
     public void updateUser(Integer id, UpdateUserRequest updateuserrequest);
     User findUserById(Integer id); //for admin

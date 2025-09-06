@@ -5,37 +5,35 @@ import com.app.trackit.model.NewUserRequest;
 import com.app.trackit.model.NewUserResponse;
 import com.app.trackit.model.UpdateUserRequest;
 import com.app.trackit.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService
 {
-    UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository)
-    {
-        this.userRepository = userRepository;
-    }
+   private final  UserRepository userRepository;
 
     @Override
     public NewUserResponse newUser(NewUserRequest newUserRequest)
     {
+        log.info("Creating user with name: {}{}", newUserRequest.getFirstName(),newUserRequest.getLastName());
         User newUser = new User();
-        newUser.setFirst_name(newUserRequest.getFirstName());
-        newUser.setLast_name(newUserRequest.getLastName());
+        newUser.setFirstName(newUserRequest.getFirstName());
+        newUser.setLastName(newUserRequest.getLastName());
         newUser.setEmail(newUserRequest.getEmail());
         newUser.setPassword(newUserRequest.getPassword());
         newUser.setRole(newUserRequest.getRole());
-        newUser.setContact_no(newUserRequest.getContact());
-        newUser.setCreated_at(LocalDateTime.now());
-        NewUserResponse newUserResponse ;
-        newUserResponse = new NewUserResponse(userRepository.save(newUser));
-        System.out.println(newUserResponse.toString());
-        return newUserResponse;
-
+        newUser.setContact(newUserRequest.getContact());
+        newUser.setCreatedAt(LocalDateTime.now());
+        userRepository.save(newUser);
+        log.info("New user has been created");
+        return new NewUserResponse(newUser);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class UserServiceImpl implements UserService
         Optional <User> optionaluser = userRepository.findById(id);
         User user = optionaluser.get();
         if (!ObjectUtils.isEmpty(updateUserRequest)) {
-            user.setUpdated_at(LocalDateTime.now());
+            user.setUpdatedAt(LocalDateTime.now());
         }
         if(updateUserRequest.getEmail()!=null)
         {
@@ -62,7 +60,7 @@ public class UserServiceImpl implements UserService
        }
        if(updateUserRequest.getContact()!=null)
        {
-           user.setContact_no(updateUserRequest.getContact());
+           user.setContact(updateUserRequest.getContact());
        }
        if(updateUserRequest.getPassword()!=null)
        {
@@ -70,11 +68,11 @@ public class UserServiceImpl implements UserService
        }
        if(updateUserRequest.getLastName()!=null)
        {
-           user.setLast_name(updateUserRequest.getLastName());
+           user.setLastName(updateUserRequest.getLastName());
        }
        if(updateUserRequest.getFirstName()!=null)
        {
-           user.setFirst_name(updateUserRequest.getFirstName());
+           user.setFirstName(updateUserRequest.getFirstName());
        }
        userRepository.save(user);
     }
