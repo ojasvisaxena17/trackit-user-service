@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: trackit-user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users
+    username: postgres
+    password: database
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
