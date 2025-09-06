@@ -21,32 +21,32 @@ public class UserController
 
     @PostMapping("/newUser")
     public ResponseEntity<NewUserResponse> newUser(@RequestBody NewUserRequest newUserRequest) {
-        log.info("Inside newUser");
+        log.info("Creating New User");
        NewUserResponse newUserResponse = userService.newUser(newUserRequest);
        return ResponseEntity.ok(newUserResponse);
-
     }
 
     @PatchMapping("/updateUser/{id}")
     public void updateUser(@PathVariable Integer id, @RequestBody UpdateUserRequest updateUserRequest) {
+        log.info("Updating user with id {}", id);
          userService.updateUser(id, updateUserRequest);
     }
 
     @GetMapping("/getUser/{id}")
     public User getUser(@PathVariable Integer id) {
+        log.info("Getting user: with id {}", id);
         return userService.findUserById(id);
     }
 
-
-
     @DeleteMapping("/deleteUser/{id}")
     public void  deleteUser(@PathVariable Integer id) {
-             userService.deleteUser(id);
+        log.info("Deleting user: with id {}", id);
+        userService.deleteUser(id);
     }
 
     @GetMapping("/getUserByMail/{email}")
     public Optional<User> findByEmail(@PathVariable String email) {
+        log.info("Finding user by email {}", email);
         return userService.findByEmail(email );
-
     }
 }
