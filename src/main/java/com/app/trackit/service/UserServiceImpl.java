@@ -39,12 +39,15 @@ public class UserServiceImpl implements UserService
     @Override
     public void deleteUser(Integer id)
     {
+        log.info("Deleting user with id: {}", id);
         userRepository.deleteById(id);
+        log.info("User with id {} has been deleted", id);
     }
 
     @Override
     public void updateUser(Integer id, UpdateUserRequest updateUserRequest)
     {
+        log.info("Updating user with id: {}", id);
         Optional <User> optionaluser = userRepository.findById(id);
         User user = optionaluser.get();
         if (!ObjectUtils.isEmpty(updateUserRequest)) {
@@ -75,10 +78,12 @@ public class UserServiceImpl implements UserService
            user.setFirstName(updateUserRequest.getFirstName());
        }
        userRepository.save(user);
+       log.info("User with id {} has been updated", id);
     }
 
     @Override
     public User findUserById(Integer id) {
+        log.info("Finding user with id: {}", id);
         Optional<User> user = userRepository.findById(id);
 
         return user.orElse(null);
@@ -87,6 +92,7 @@ public class UserServiceImpl implements UserService
     @Override
     public Optional<User> findByEmail(String email)
     {
+       log.info("Finding user with email: {}", email);
       Optional<User> user = userRepository.findByEmail(email);
       if(user.isPresent())
       {
