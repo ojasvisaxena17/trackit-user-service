@@ -1,25 +1,29 @@
 package com.app.trackit.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 @Entity
 @Table(name = "Users")
 @Getter
 @Setter
-public class User
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int userId;
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String role;
-    String contact;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  int userId;
+
+  String firstName;
+  String lastName;
+  String email;
+  String password;
+  String role;
+  String contact;
+  LocalDateTime createdAt;
+  LocalDateTime updatedAt;
 }
